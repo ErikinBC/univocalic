@@ -1,0 +1,12 @@
+*__pycache__/*
+*.txt
+*.jsonl
+*.png
+*.npy
+*.csv
+!output/*.png
+HEAD
+hooks
+info
+config
+*.DS_Store*
