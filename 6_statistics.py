@@ -86,23 +86,23 @@ if os.path.exists(path_epoch4) and os.path.exists(path_epoch8):
     print((100*(1-pd.concat([ecdf_sentence.assign(vowel='All'),ecdf_sentence]).groupby(cn_gg)['pct'].mean().round(2))).astype(int).astype(str)+'%')
 
     # Plot the ECDF using plotnine coloring by epoch
-    gg = (pn.ggplot(ecdf_sentence, pn.aes(x='pct', y='ecdf', color='factor(epoch)')) + 
+    gg = (pn.ggplot(ecdf_sentence, pn.aes(x='ecdf', y='pct', color='factor(epoch)')) + 
         pn.geom_line(size=0.5) + pn.theme_bw() +
         pn.scale_x_continuous(limits=(0,1),labels=percent_format()) + 
         pn.scale_y_continuous(limits=(0,1),labels=percent_format()) + 
         pn.facet_wrap('~vowel',labeller=pn.label_both) +
         pn.guides(color=pn.guide_legend(title='# of epochs')) + 
-        pn.labs(x='% words match vowel restriction', y='% of sentences'))
+        pn.labs(y='% words match vowel restriction', x='Cumulative % of sentences'))
     gg.save(os.path.join('output','ecdf_epoch.png'), width=8, height=3)
 
     # Plot the ECDF but this time coloring by vowel
-    gg = (pn.ggplot(ecdf_sentence, pn.aes(x='pct', y='ecdf', color='factor(vowel)')) + 
+    gg = (pn.ggplot(ecdf_sentence, pn.aes(x='ecdf', y='pct', color='factor(vowel)')) + 
         pn.geom_line(size=0.5) + pn.theme_bw() +    
         pn.scale_x_continuous(limits=(0,1),labels=percent_format()) +
         pn.scale_y_continuous(limits=(0,1),labels=percent_format()) +
         pn.facet_wrap('~epoch',labeller=pn.label_both) +
         pn.guides(color=pn.guide_legend(title='Vowel')) +
-        pn.labs(x='% words match vowel restriction', y='% of sentences'))
+        pn.labs(y='% words match vowel restriction', x='Cumulative % of sentences'))
     gg.save(os.path.join('output','ecdf_vowel.png'), width=8, height=3)
 
 
